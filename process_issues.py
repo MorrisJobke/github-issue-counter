@@ -8,6 +8,9 @@ from json_helpers import extract_datetime
 ORG = 'owncloud'
 REPO = 'core'
 FILENAME_ISSUES = ORG + 'issues.json'
+BUG_LABEL = ['bug']
+CRITICAL_BUG_LABEL = ['sev1-critical', 'sev2-high']
+APP_LABEL = ['app:files', 'app:files_encryption', 'app:files_external', 'app:files_trashbin', 'app:files:versions', 'app:objectstore', 'app:search', 'app:user_ldap']
 
 one_day = datetime.timedelta(days=1)
 now = datetime.datetime.now(datetime.timezone.utc)
@@ -35,7 +38,7 @@ day += one_day
 result = {}
 
 f = open('result.tsv', 'w')
-f.write('date\topen_issues\tclosed_issues\topen_prs\tclosed_prs\n')
+f.write('date\topen_issues\tclosed_issues\topen_prs\tclosed_prs\tranking\t%s\n'%'\t'.join(APP_LABEL))
 
 while day < now:
 	key = day.strftime('%Y-%m-%d')
@@ -45,6 +48,10 @@ while day < now:
 	closed_pr_count = 0
 	open_issue_count = 0
 	closed_issue_count = 0
+	rating_number = 0
+	rating_apps = {}
+	for app in APP_LABEL:
+		rating_apps[app] = 0
 
 	for i in data[REPO]:
 		element = data[REPO][i]
@@ -66,7 +73,31 @@ while day < now:
 			else:
 				closed_issue_count += 1
 
-	f.write('%s\t%i\t%i\t%i\t%i\n'%(key, open_issue_count, closed_issue_count, open_pr_count, closed_pr_count))
+		if is_open:
+			rating = 1
+
+			for label in BUG_LABEL:
+				if label in element['labels']:
+					rating = 10
+					break
+
+			for label in CRITICAL_BUG_LABEL:
+				if label in element['labels']:
+					rating = 100
+					break
+
+			rating_number += rating
+
+			for app in APP_LABEL:
+				if app in element['labels']:
+					rating_apps[app] += rating
+
+	output = '%s\t%i\t%i\t%i\t%i\t%i'%(key, open_issue_count, closed_issue_count, open_pr_count, closed_pr_count, rating_number)
+
+	for app in APP_LABEL:
+		output += '\t%i'%rating_apps[app]
+
+	f.write(output + '\n')
 
 	day += one_day
 

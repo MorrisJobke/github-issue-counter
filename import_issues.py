@@ -25,7 +25,8 @@ for i in gh.iter_repo_issues(ORG, REPO, state='all'):
 	data[REPO][i.number] = {
 		'created_at': i.created_at,
 		'closed_at': i.closed_at,
-		'is_pull_request': (i.pull_request is not None)
+		'is_pull_request': (i.pull_request is not None),
+		'labels': [l.name for l in i.labels]
 	}
 
 f = open(FILENAME_ISSUES, 'w')

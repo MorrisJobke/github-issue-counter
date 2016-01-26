@@ -10,7 +10,7 @@ REPO = 'core'
 FILENAME_ISSUES = ORG + 'issues.json'
 BUG_LABEL = ['bug']
 CRITICAL_BUG_LABEL = ['sev1-critical', 'sev2-high']
-APP_LABEL = ['app:dav', 'app:encryption', 'app:federation', 'app:files', 'app:files_encryption', 'app:files_external', 'app:files_trashbin', 'app:files:versions', 'app:objectstore', 'app:provisioning_api', 'app:search', 'app:user_ldap', 'comp:app', 'comp:console-occ', 'comp:core-js', 'comp:core', 'comp:filesystem', 'dev:appframework', 'dev:ocp', 'dev:ocs', 'feature:activity', 'feature:avatars', 'feature:comments', 'feature:federated-cloud-sharing', 'feature:filepicker', 'feature:l10n', 'feature:locking', 'feature:notifications', 'feature:previews', 'feature:quota', 'feature:sharing', 'feature:sidebar', 'feature:tags', 'feature:theming', 'feature:update', 'settings:admin', 'settings:apps', 'settings:installation', 'settings:login', 'settings:personal', 'settings:users']
+APP_LABEL = ['app:dav', 'app:encryption', 'app:federation', 'app:files', 'app:files_encryption', 'app:files_external', 'app:files_trashbin', 'app:files_versions', 'app:objectstore', 'app:provisioning_api', 'app:search', 'app:user_ldap', 'comp:app', 'comp:console-occ', 'comp:core-js', 'comp:core', 'comp:filesystem', 'dev:appframework', 'dev:ocp', 'dev:ocs', 'feature:activity', 'feature:avatars', 'feature:comments', 'feature:federated-cloud-sharing', 'feature:filepicker', 'feature:l10n', 'feature:locking', 'feature:notifications', 'feature:previews', 'feature:quota', 'feature:sharing', 'feature:sidebar', 'feature:tags', 'feature:theming', 'feature:update', 'settings:admin', 'settings:apps', 'settings:installation', 'settings:login', 'settings:personal', 'settings:users']
 
 one_day = datetime.timedelta(days=1)
 now = datetime.datetime.now(datetime.timezone.utc)
